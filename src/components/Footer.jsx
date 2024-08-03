@@ -7,9 +7,7 @@ const Footer = ({ tasksList }) => {
     return (
         <>
             <footer
-                className={`flex border-[2px] px-4 py-5 mt-[2em] border-slate-800 w-full items-center justify-center ${
-                    tasksList < 2 ? 'absolute bottom-0' : ''
-                }`}
+                className='flex border-[2px] px-4 py-5 mt-[2em] border-slate-800 w-full items-center justify-center'
             >
                 <div className='max-w-7xl flex'>
                     <span className='text-center w-full'>
