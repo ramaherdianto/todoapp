@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './App.css';
 import Header from './components/Header';
 import Form from './components/Form';
 import CheckList from './components/CheckList';
@@ -53,7 +52,6 @@ function App() {
                 description: formTask.description,
                 completed: false,
             };
-            console.log(newTask);
             setTasksList([...tasksList, newTask]);
             setOpen(false);
             onResetForm();
@@ -98,11 +96,18 @@ function App() {
         }
     };
 
+    const handleClearTasks = () => {
+        const confirm = window.confirm('Are you sure you want to delete all tasks?');
+        if (confirm) {
+            setTasksList([]);
+        }
+    };
+
     const sortedItems = sortedTasks();
 
     return (
         <>
-            <main className='min-h-screen mx-auto w-full'>
+            <main className='mx-auto w-full transition-all duration-500 ease-in-out'>
                 <Header />
                 <Form
                     sortBy={sortBy}
@@ -115,6 +120,8 @@ function App() {
                     open={open}
                     handleOpen={handleOpen}
                     handleClose={handleClose}
+                    handleClearTasks={handleClearTasks}
+                    tasksList={tasksList}
                 />
                 <CheckList
                     tasksList={tasksList}

@@ -11,12 +11,14 @@ const Form = ({
     open,
     handleClose,
     handleOpen,
+    handleClearTasks,
+    tasksList,
 }) => {
     return (
         <>
             <section className='px-4 py-10 flex items-center justify-center'>
-                <section className='max-w-7xl px-4'>
-                    <section className='flex w-full justify-between gap-4'>
+                <section className='max-w-7xl flex px-4'>
+                    <section className='flex w-full justify-between gap-4 md:gap-10'>
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value)}
@@ -26,22 +28,32 @@ const Form = ({
                             <option value='title'>Sorted by Title</option>
                             <option value='status'>Sorted by status</option>
                         </select>
-                        <button
-                            onClick={handleOpen}
-                            className='text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-slate-800 font-medium text-sm px-6 py-5 rounded-lg'
-                        >
-                            Add
-                        </button>
+                        <section className='flex items-center gap-4'>
+                            <button
+                                onClick={handleOpen}
+                                className='text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-slate-800 font-medium text-sm px-6 py-5 rounded-lg'
+                            >
+                                Add
+                            </button>
+                            {tasksList.length >= 2 ? (
+                                <button
+                                    onClick={handleClearTasks}
+                                    className='text-slate-800 border hover:border-b-[6px] hover:border-r-[6px] border-slate-800 font-medium text-sm px-6 py-5 rounded-lg transition-all duration-300 ease-in-out'
+                                >
+                                    Delete All
+                                </button>
+                            ) : null}
+                        </section>
                     </section>
                     {open ? (
                         <div className='bg-zinc-200 bg-opacity-80 fixed inset-0 z-50 px-4'>
-                            <div className='flex justify-center items-center'>
-                                <div className='w-full sm:w-[80%] md:w-[65%] lg:w-[40%] flex relative flex-col justify-center items-start bg-white py-12 px-4 border-[2px] border-b-[6px] border-r-[6px] border-slate-800 rounded-xl'>
-                                    <div className='flex w-full justify-center items-center'>
+                            <div className='flex min-h-screen justify-center items-center'>
+                                <div className='w-full sm:w-[80%] md:w-[65%] lg:w-[40%] flex flex-col justify-center items-start bg-white py-12 px-4 border-[2px] border-b-[6px] border-r-[6px] border-slate-800 rounded-xl'>
+                                    <div className='flex w-full justify-center items-center relative'>
                                         <h1 className='font-bold text-xl'>Add Task</h1>
                                         <button
                                             onClick={handleClose}
-                                            className='absolute w-0 h-0 -top-[12em] sm:-top-[12em] right-[2em] sm:right-[2em]'
+                                            className='absolute w-0 h-0 -top-[2em] sm:-top-[2em] right-[1em] sm:right-[1em]'
                                         >
                                             ❌
                                         </button>
