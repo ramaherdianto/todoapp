@@ -66,6 +66,20 @@ function App() {
         }
     };
 
+    const handleCheckTask = (id) => {
+        const newTask = tasksList.map((item) => {
+            if (item.id === id) {
+                return {
+                    ...item,
+                    completed: !item.completed,
+                };
+            } else {
+                return item;
+            }
+        });
+        setTasksList(newTask);
+    };
+
     return (
         <>
             <main className='min-h-screen mx-auto w-full'>
@@ -80,7 +94,7 @@ function App() {
                     handleOpen={handleOpen}
                     handleClose={handleClose}
                 />
-                <CheckList tasksList={tasksList} />
+                <CheckList tasksList={tasksList} handleCheckTask={handleCheckTask} />
                 <Footer />
             </main>
         </>
