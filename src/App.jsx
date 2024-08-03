@@ -122,7 +122,7 @@ function App() {
                     handleDeleteTask={handleDeleteTask}
                     sortedItems={sortedItems}
                 />
-                <Footer />
+                <Footer tasksList={tasksList} />
             </main>
         </>
     );
