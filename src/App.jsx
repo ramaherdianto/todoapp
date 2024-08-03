@@ -104,7 +104,7 @@ function App() {
                     handleCheckTask={handleCheckTask}
                     handleDeleteTask={handleDeleteTask}
                 />
-                <Footer />
+                <Footer tasksList={tasksList} />
             </main>
         </>
     );
