@@ -1,6 +1,8 @@
 import React from 'react';
 
 const Form = ({
+    sortBy,
+    setSortBy,
     handleKeyDown,
     handleSubmitTask,
     formTask,
@@ -16,14 +18,13 @@ const Form = ({
                 <section className='max-w-7xl px-4'>
                     <section className='flex w-full justify-between gap-4'>
                         <select
-                            id='countries'
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
                             className='bg-gray-50 font-medium w-[200px] sm:w-[300px] md:w-[350px] border border-b-[6px] border-r-[6px] border-slate-800 focus:outline-none text-slate-800 text-sm block px-2.5 py-4 rounded-lg'
                         >
-                            <option selected>Filter Task</option>
-                            <option value='US'>United States</option>
-                            <option value='CA'>Canada</option>
-                            <option value='FR'>France</option>
-                            <option value='DE'>Germany</option>
+                            <option value='input'>Sorted by Input</option>
+                            <option value='title'>Sorted by Title</option>
+                            <option value='status'>Sorted by status</option>
                         </select>
                         <button
                             onClick={handleOpen}

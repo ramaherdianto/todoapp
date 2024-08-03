@@ -14,6 +14,7 @@ function App() {
         description: '',
         completed: false,
     });
+    const [sortBy, setSortBy] = useState('input');
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -85,11 +86,27 @@ function App() {
         setTasksList(deleteTask);
     };
 
+    const sortedTasks = () => {
+        switch (sortBy) {
+            case 'title':
+                return tasksList.slice().sort((a, b) => a.title.localeCompare(b.title));
+            case 'status':
+                return tasksList.slice().sort((a, b) => Number(b.completed) - Number(a.completed));
+            case 'input':
+            default:
+                return tasksList;
+        }
+    };
+
+    const sortedItems = sortedTasks();
+
     return (
         <>
             <main className='min-h-screen mx-auto w-full'>
                 <Header />
                 <Form
+                    sortBy={sortBy}
+                    setSortBy={setSortBy}
                     handleKeyDown={handleKeyDown}
                     onFormChange={onFormChange}
                     handleSubmitTask={handleSubmitTask}
@@ -103,6 +120,7 @@ function App() {
                     tasksList={tasksList}
                     handleCheckTask={handleCheckTask}
                     handleDeleteTask={handleDeleteTask}
+                    sortedItems={sortedItems}
                 />
                 <Footer />
             </main>
