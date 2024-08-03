@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './List';
 
-const CheckList = ({ tasksList, handleCheckTask }) => {
+const CheckList = ({ tasksList, handleCheckTask, handleDeleteTask }) => {
     return (
         <>
             <section className='flex justify-center items-center'>
@@ -13,6 +13,7 @@ const CheckList = ({ tasksList, handleCheckTask }) => {
                                     key={id}
                                     {...{ id, title, description, completed }}
                                     handleCheckTask={handleCheckTask}
+                                    handleDeleteTask={handleDeleteTask}
                                 />
                             );
                         })}
