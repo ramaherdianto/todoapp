@@ -80,6 +80,11 @@ function App() {
         setTasksList(newTask);
     };
 
+    const handleDeleteTask = (id) => {
+        const deleteTask = tasksList.filter((item) => item.id !== id);
+        setTasksList(deleteTask);
+    };
+
     return (
         <>
             <main className='min-h-screen mx-auto w-full'>
@@ -94,7 +99,11 @@ function App() {
                     handleOpen={handleOpen}
                     handleClose={handleClose}
                 />
-                <CheckList tasksList={tasksList} handleCheckTask={handleCheckTask} />
+                <CheckList
+                    tasksList={tasksList}
+                    handleCheckTask={handleCheckTask}
+                    handleDeleteTask={handleDeleteTask}
+                />
                 <Footer />
             </main>
         </>

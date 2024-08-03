@@ -1,6 +1,6 @@
 import React from 'react';
 
-const List = ({ id, title, description, completed, handleCheckTask }) => {
+const List = ({ id, title, description, completed, handleCheckTask, handleDeleteTask }) => {
     return (
         <>
             <li className='flex w-full sm:h-[250px] max-h-[300px] sm:w-[45%] md:w-[40%] lg:w-[28%] border border-r-[6px] border-b-[6px] border-slate-800 p-4 justify-between items-center gap-4 rounded-lg'>
@@ -20,7 +20,7 @@ const List = ({ id, title, description, completed, handleCheckTask }) => {
                                 {title}
                             </h2>
                         </div>
-                        <button>🗑️</button>
+                        <button onClick={() => handleDeleteTask(id)}>🗑️</button>
                     </div>
                     <div className='flex flex-col justify-center py-5'>
                         <span
