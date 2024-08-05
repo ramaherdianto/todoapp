@@ -1,7 +1,7 @@
 
 # Todo App
 
-Todo App with Sorted tasks feature using React JS and TailwindCSS
+This Todo app will be built using React JS as the primary framework for managing components and application logic. To provide a modern and responsive look, we will use Tailwind CSS as the CSS framework. The main feature of this application is the ability to sort tasks based on specific criteria.
 
 
 
