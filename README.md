@@ -11,7 +11,7 @@ This Todo app will be built using React JS as the primary framework for managing
 Clone the project
 
 ```bash
-  git clone https://github.com/ramaherdianto/gocheck-full.git
+  git clone https://github.com/ramaherdianto/todoapp.git
 ```
 
 Go to the project directory
