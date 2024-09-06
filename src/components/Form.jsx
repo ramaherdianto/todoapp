@@ -20,13 +20,16 @@ const Form = ({
                 <section className='max-w-7xl flex px-4'>
                     <section className='flex w-full justify-between gap-4 md:gap-10'>
                         <select
-                            value={sortBy}
                             onChange={(e) => setSortBy(e.target.value)}
                             className='bg-gray-50 font-medium w-[200px] sm:w-[300px] md:w-[350px] border border-b-[6px] border-r-[6px] border-slate-800 focus:outline-none text-slate-800 text-sm block px-2.5 py-4 rounded-lg'
                         >
-                            <option value='input'>Sorted by Input</option>
-                            <option value='title'>Sorted by Title</option>
-                            <option value='status'>Sorted by status</option>
+                            <option selected disabled>
+                                Filter
+                            </option>
+                            <option value='reset'>Reset Filter</option>
+                            <option value='title'>Filter: Title</option>
+                            <option value='incompleted'>Filter: Incompleted</option>
+                            <option value='completed'>Filter: Completed</option>
                         </select>
                         <section className='flex items-center gap-4'>
                             <button

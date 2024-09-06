@@ -89,10 +89,12 @@ function App() {
 
     const sortedTasks = () => {
         switch (sortBy) {
-            case 'title':
+            case 'reset':
                 return tasksList.slice().sort((a, b) => a.title.localeCompare(b.title));
-            case 'status':
+            case 'completed':
                 return tasksList.slice().sort((a, b) => Number(b.completed) - Number(a.completed));
+            case 'incompleted':
+                return tasksList.slice().sort((a, b) => Number(a.completed) - Number(b.completed));
             case 'input':
             default:
                 return tasksList;
@@ -103,6 +105,7 @@ function App() {
         const confirm = window.confirm('Are you sure you want to delete all tasks?');
         if (confirm) {
             setTasksList([]);
+            localStorage.removeItem('tasksList');
         }
     };
 
