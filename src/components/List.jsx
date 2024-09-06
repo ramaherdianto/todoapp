@@ -11,6 +11,7 @@ const List = ({ id, title, description, completed, handleCheckTask, handleDelete
                                 onChange={() => handleCheckTask(id)}
                                 type='checkbox'
                                 className='w-5 h-5 accent-slate-700'
+                                checked={completed}
                             />
                             <h2
                                 className={`text-xl sm:text-lg font-medium capitalize ${

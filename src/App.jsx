@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Form from './components/Form';
 import CheckList from './components/CheckList';
 import Footer from './components/Footer';
 
 function App() {
-    const [tasksList, setTasksList] = useState([]);
+    const savedLocal = localStorage.getItem('tasksList');
+    const initialValue = JSON.parse(savedLocal);
+    const [tasksList, setTasksList] = useState(initialValue || []);
     const [showAlert, setShowAlert] = useState(false);
     const [formTask, setFormTask] = useState({
         id: new Date().getTime(),
@@ -53,6 +55,7 @@ function App() {
                 completed: false,
             };
             setTasksList([...tasksList, newTask]);
+            localStorage.setItem('taskList', tasksList);
             setOpen(false);
             onResetForm();
         }
@@ -104,6 +107,12 @@ function App() {
     };
 
     const sortedItems = sortedTasks();
+
+    useEffect(() => {
+        if (tasksList.length > 0) {
+            localStorage.setItem('tasksList', JSON.stringify(tasksList));
+        }
+    }, [tasksList]);
 
     return (
         <>
