@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTodoStore } from '../store/todoStore';
 import { useShallow } from 'zustand/shallow';
+import { toast } from 'react-toastify';
 
 const Form = () => {
     const [todos, addTodo, sortedTodo, removeAllTodos] = useTodoStore(
@@ -50,12 +51,19 @@ const Form = () => {
         // handle if user not filled the input yet
         if (formTodo.title.trim() === '' || formTodo.description.trim() === '') {
             setShowAlert(true);
-            alert('Input field cannot be empty my dear😘');
+            toast.error('Input fields cannot be empty ⛔', {
+                position: 'top-center',
+                autoClose: 1000,
+            });
         } else {
             //hanlde if user hasbeen filled in the form
             addTodo(formTodo.title, formTodo.description);
             localStorage.setItem('todos', todos);
             setOpen(false);
+            toast.success('Added Todo Successfully ✅', {
+                position: 'top-center',
+                autoClose: 1000,
+            });
             onResetForm();
         }
     };
@@ -81,6 +89,10 @@ const Form = () => {
         if (confirm) {
             removeAllTodos();
             localStorage.removeItem('todos');
+            toast.success('Deleted All Todos Successfully', {
+                position: 'top-center',
+                autoClose: 2000,
+            });
         }
     };
 

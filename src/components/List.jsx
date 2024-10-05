@@ -1,11 +1,27 @@
 import React from 'react';
 import { useTodoStore } from '../store/todoStore';
 import { useShallow } from 'zustand/shallow';
+import { toast } from 'react-toastify';
 
 const List = ({ todo }) => {
-    const [checkTodo, removeTodo] = useTodoStore(
-        useShallow((state) => [state.checkTodo, state.removeTodo])
+    const [todos, checkTodo, removeTodo] = useTodoStore(
+        useShallow((state) => [state.todos, state.checkTodo, state.removeTodo])
     );
+
+    // handle deleted todo
+    const handleDeletedTodo = (id) => {
+        removeTodo(id);
+
+        // Filter the parsed array and update localStorage
+        const updatedTodos = todos.filter((todo) => todo.id !== id);
+        localStorage.setItem('todos', JSON.stringify(updatedTodos));
+
+        // Show success toast
+        toast.success('Todo has been deleted', {
+            position: 'top-center',
+            autoClose: 1000,
+        });
+    };
 
     return (
         <>
@@ -27,7 +43,7 @@ const List = ({ todo }) => {
                                 {todo.title}
                             </h2>
                         </div>
-                        <button onClick={() => removeTodo(todo.id)}>🗑️</button>
+                        <button onClick={() => handleDeletedTodo(todo.id)}>🗑️</button>
                     </div>
                     <div className='flex flex-col justify-center py-5'>
                         <span

@@ -4,6 +4,8 @@ import Form from './components/Form';
 import CheckList from './components/CheckList';
 import Footer from './components/Footer';
 import { useTodoStore } from './store/todoStore';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
     const todos = useTodoStore((state) => state.todos);
@@ -22,6 +24,7 @@ function App() {
                 <Form />
                 <CheckList />
                 <Footer />
+                <ToastContainer />
             </main>
         </>
     );
