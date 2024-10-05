@@ -1,8 +1,34 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Todo App
 
-Currently, two official plugins are available:
+This Todo app will be built using React JS as the primary framework for managing components and application logic. To provide a modern and responsive look, we will use Tailwind CSS as the CSS framework. The main feature of this application is the ability to sort tasks based on specific criteria.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/ramaherdianto/todoapp.git
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+

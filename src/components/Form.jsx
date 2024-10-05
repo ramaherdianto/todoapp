@@ -1,32 +1,105 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useTodoStore } from '../store/todoStore';
+import { useShallow } from 'zustand/shallow';
 
-const Form = ({
-    sortBy,
-    setSortBy,
-    handleKeyDown,
-    handleSubmitTask,
-    formTask,
-    onResetForm,
-    onFormChange,
-    open,
-    handleClose,
-    handleOpen,
-    handleClearTasks,
-    tasksList,
-}) => {
+const Form = () => {
+    const [todos, addTodo, sortedTodo, removeAllTodos] = useTodoStore(
+        useShallow((state) => [state.todos, state.addTodo, state.sortedTodo, state.removeAllTodos])
+    );
+
+    const [formTodo, setFormTodo] = useState({
+        title: '',
+        description: '',
+    });
+
+    const [sortedBy, setSortedBy] = useState('input');
+
+    const [showAlert, setShowAlert] = useState(false);
+
+    // handle onChange input
+    const onFormChange = (e) => {
+        const { name, value } = e.target;
+        setFormTodo({
+            ...formTodo,
+            [name]: value,
+        });
+    };
+
+    // handle open or close modal form todos
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        onResetForm();
+    };
+
+    // hanlde reset input after user submitted the form
+    const onResetForm = () => {
+        setFormTodo({
+            title: '',
+            description: '',
+        });
+    };
+
+    // handle submit form
+    const handleSubmitTodos = (event) => {
+        event.preventDefault();
+        // handle if user not filled the input yet
+        if (formTodo.title.trim() === '' || formTodo.description.trim() === '') {
+            setShowAlert(true);
+            alert('Input field cannot be empty my dear😘');
+        } else {
+            //hanlde if user hasbeen filled in the form
+            addTodo(formTodo.title, formTodo.description);
+            localStorage.setItem('todos', todos);
+            setOpen(false);
+            onResetForm();
+        }
+    };
+
+    // hanlde for submit form when user press the enter button on their keyboard
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleSubmitTodos(event);
+        }
+    };
+
+    // handle sorted todos
+    const handleSortChange = (e) => {
+        const selectedOption = e.target.value;
+        setSortedBy(selectedOption);
+        sortedTodo(selectedOption);
+    };
+
+    // handle button for clear all todos
+    const handleClearTasks = () => {
+        const confirm = window.confirm('Are you sure you want to delete all tasks?');
+        if (confirm) {
+            removeAllTodos();
+            localStorage.removeItem('todos');
+        }
+    };
+
     return (
         <>
             <section className='px-4 py-10 flex items-center justify-center'>
                 <section className='max-w-7xl flex px-4'>
-                    <section className='flex w-full justify-between gap-4 md:gap-10'>
+                    <section className='flex flex-wrap w-full justify-center sm:justify-between gap-8 md:gap-10'>
                         <select
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
-                            className='bg-gray-50 font-medium w-[200px] sm:w-[300px] md:w-[350px] border border-b-[6px] border-r-[6px] border-slate-800 focus:outline-none text-slate-800 text-sm block px-2.5 py-4 rounded-lg'
+                            onChange={handleSortChange}
+                            className='bg-gray-50 font-medium w-full sm:w-[300px] md:w-[350px] border border-b-[6px] border-r-[6px] border-slate-800 focus:outline-none text-slate-800 text-sm block px-2.5 py-4 rounded-lg'
                         >
-                            <option value='input'>Sorted by Input</option>
-                            <option value='title'>Sorted by Title</option>
-                            <option value='status'>Sorted by status</option>
+                            <option selected disabled>
+                                Filter
+                            </option>
+                            <option value='reset'>Reset Filter</option>
+                            <option value='title'>Filter: Title</option>
+                            <option value='incompleted'>Filter: Incompleted</option>
+                            <option value='completed'>Filter: Completed</option>
                         </select>
                         <section className='flex items-center gap-4'>
                             <button
@@ -35,7 +108,7 @@ const Form = ({
                             >
                                 Add
                             </button>
-                            {tasksList.length >= 2 ? (
+                            {todos.length >= 2 ? (
                                 <button
                                     onClick={handleClearTasks}
                                     className='text-slate-800 border hover:border-b-[6px] hover:border-r-[6px] border-slate-800 font-medium text-sm px-6 py-5 rounded-lg transition-all duration-300 ease-in-out'
@@ -60,13 +133,13 @@ const Form = ({
                                     </div>
                                     <div className='w-full flex justify-center items-center text-lg text-zinc-600 mt-14'>
                                         <form
-                                            onSubmit={handleSubmitTask}
+                                            onSubmit={handleSubmitTodos}
                                             className='w-full flex items-start flex-col rounded-xl'
                                         >
                                             <input
                                                 type='text'
                                                 name='title'
-                                                value={formTask.title}
+                                                value={formTodo.title}
                                                 onChange={onFormChange}
                                                 onKeyDown={handleKeyDown}
                                                 placeholder='Title'
@@ -77,7 +150,7 @@ const Form = ({
                                                 id='message'
                                                 rows='4'
                                                 name='description'
-                                                value={formTask.description}
+                                                value={formTodo.description}
                                                 onChange={onFormChange}
                                                 className='block font-medium my-4 p-2.5 lg:h-[100px] w-full text-sm bg-gray-50 border border-b-[6px] border-r-[6px] border-slate-800 focus:outline-none text-slate-800 rounded-lg'
                                                 placeholder='Description...'
