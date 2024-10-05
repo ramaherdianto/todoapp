@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTodoStore } from '../store/todoStore';
 import { useShallow } from 'zustand/shallow';
 import { toast } from 'react-toastify';
