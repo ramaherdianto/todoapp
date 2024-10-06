@@ -1,11 +1,13 @@
 import React from 'react';
 import List from './List';
+import { useTodoStore } from '../store/todoStore';
 
-const CheckList = ({ handleCheckTask, handleDeleteTask, sortedItems }) => {
+const CheckList = () => {
+    const todos = useTodoStore((state) => state.todos);
     return (
         <>
             <section className='flex justify-center items-center'>
-                {sortedItems.length === 0 ? (
+                {todos.length === 0 ? (
                     <div className='h-[300px]'></div>
                 ) : (
                     <section className='max-w-7xl w-full flex items-center justify-center px-4 py-10'>
@@ -13,15 +15,8 @@ const CheckList = ({ handleCheckTask, handleDeleteTask, sortedItems }) => {
                             className='w-full flex flex-wrap justify-center items-start gap-6 sm:gap-x-10 sm:gap-y-8 md:gap-x-8 md:gap-y-8'
                             style={{ margin: '0 auto' }}
                         >
-                            {sortedItems?.map(({ id, title, description, completed }) => {
-                                return (
-                                    <List
-                                        key={id}
-                                        {...{ id, title, description, completed }}
-                                        handleCheckTask={handleCheckTask}
-                                        handleDeleteTask={handleDeleteTask}
-                                    />
-                                );
+                            {todos?.map((todo) => {
+                                return <List key={todo.id} todo={todo} />;
                             })}
                         </ul>
                     </section>
